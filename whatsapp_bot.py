@@ -5,7 +5,7 @@ import time
 class WhatsappBot:
     def __init__(self):
         self.message = "Annihilation is always the answer. We destroy parts of ourselves every day. We Photoshop our warts away. We edit the parts we hate about ourselves, modify the parts we think people hate. We curate our identity, carve it, distill it. Annihilation is all we are."
-        self.groups = ["Coronapru 💥", "SB // A New Hope "]
+        self.groups = ["Coronapru", "SB // A New Hope "]
         options = webdriver.ChromeOptions()
         options.add_argument("lang=eng")
         self.driver = webdriver.Chrome(executable_path=r"./chromedriver")
@@ -19,8 +19,7 @@ class WhatsappBot:
                 f"//span[@title='{group}']")
             time.sleep(3)
             group.click()
-            chat_box = self.driver.find_element_by_class_name(
-                "_3ko75 _5h6Y_ _3Whw5")
+            chat_box = self.driver.find_element_by_class_name("_3uMse")
             time.sleep(3)
             chat_box.click()
             chat_box.send_keys(self.message)
