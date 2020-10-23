@@ -29,3 +29,7 @@ class WhatsappBot:
             time.sleep(3)
             send_button.click()
             time.sleep(5)
+
+
+whatsapp_bot = WhatsappBot()
+whatsapp_bot.sendMessages()
