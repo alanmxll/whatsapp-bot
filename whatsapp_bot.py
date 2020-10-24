@@ -1,34 +1,32 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from webdriver_manager.chrome import ChromeDriverManager
 import time
 
 
 class WhatsappBot:
     def __init__(self):
-        self.message = "Annihilation is always the answer. We destroy parts of ourselves every day. We Photoshop our warts away. We edit the parts we hate about ourselves, modify the parts we think people hate. We curate our identity, carve it, distill it. Annihilation is all we are."
-        self.groups = ["Coronapru", "SB // A New Hope "]
-        options = webdriver.ChromeOptions()
-        options.add_argument("lang=eng")
-        self.driver = webdriver.Chrome(executable_path=r"./chromedriver")
-
-    def sendMessages(self):
+        self.driver = webdriver.Chrome(ChromeDriverManager().install())
         self.driver.get("https://web.whatsapp.com/")
-        time.sleep(30)
+        time.sleep(15)
 
-        for group in self.groups:
-            group = self.driver.find_element_by_xpath(
-                f"//span[@title='{group}']")
-            time.sleep(3)
-            group.click()
-            chat_box = self.driver.find_element_by_class_name("_3uMse")
-            time.sleep(3)
-            chat_box.click()
-            chat_box.send_keys(self.message)
-            send_button = self.driver.find_element_by_xpath(
-                "//span[@data-icon='send']")
-            time.sleep(3)
-            send_button.click()
-            time.sleep(5)
+    def __find_contact(self, contact):
+        search_field = self.driver.find_element_by_xpath(
+            "//div[contains(@class,'copyable-text selectable-text')]")
+        time.sleep(3)
+        search_field.click()
+        search_field.send_keys(contact)
+        search_field.send_keys(Keys.ENTER)
 
+    def __send_message(self, message):
+        message_field = self.driver.find_elements_by_xpath(
+            "//div[contains(@class,'copyable-text selectable-text')]")
+        message_field[1].click()
+        time.sleep(3)
+        message_field[1].send_keys(message)
+        message_field[1].send_keys(Keys.ENTER)
 
-whatsapp_bot = WhatsappBot()
-whatsapp_bot.sendMessages()
+    def execute(self, contacts, message):
+        for contact in contacts:
+            self.__find_contact(contact)
+            self.__send_message(message)
