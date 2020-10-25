@@ -1,7 +1,7 @@
 from whatsapp_bot import WhatsappBot
 
-contacts = ["Arwen", "Jey"]
-message = "Hey! I love you. <3"
+contacts = ["Contact 1", "Contact 2"]
+message = "Message"
 
 if __name__ == "__main__":
     bot = WhatsappBot()
